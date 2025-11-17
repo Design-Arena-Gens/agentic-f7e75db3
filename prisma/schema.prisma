@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Incident {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  severity    String
+  status      String
+  category    String
+  location    String
+  reportedBy  String
+  reportedAt  DateTime @default(now())
+  resolvedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Inspection {
+  id          String   @id @default(cuid())
+  title       String
+  type        String
+  location    String
+  inspector   String
+  status      String
+  score       Int?
+  findings    String?
+  dueDate     DateTime
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Training {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  type        String
+  instructor  String
+  location    String
+  startDate   DateTime
+  endDate     DateTime
+  maxAttendees Int
+  attendees   String   @default("[]")
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Permit {
+  id          String   @id @default(cuid())
+  title       String
+  type        String
+  location    String
+  requestedBy String
+  approvedBy  String?
+  status      String
+  startDate   DateTime
+  endDate     DateTime
+  hazards     String
+  controls    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Chemical {
+  id            String   @id @default(cuid())
+  name          String
+  casNumber     String?
+  location      String
+  quantity      String
+  unit          String
+  hazardClass   String
+  sdsUrl        String?
+  expiryDate    DateTime?
+  lastInspected DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
